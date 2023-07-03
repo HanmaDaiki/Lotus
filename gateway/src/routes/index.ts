@@ -11,15 +11,6 @@ type TService = {
   host: string;
 }
 
-router.get('/:serviceName', async (req, res) => {
-  const { serviceName } = req.params;
-  const service: TService = register.services[serviceName];
-
-  const response = await axios.get(service.url);
-  console.log(response.data);
-  return JSON.stringify(response.data);
-});
-
 router.post('/:serviceName/:path', async (req, res) => {
   try {
     const { serviceName, path } = req.params;
