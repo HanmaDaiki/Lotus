@@ -1,0 +1,10 @@
+{
+  "services": {
+    "auth": {
+      "name": "authorization",
+      "host": "http://localhost",
+      "port": 5001,
+      "url": "http://localhost:5001/users/"
+    }
+  }
+}
