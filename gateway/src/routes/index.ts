@@ -12,26 +12,26 @@ type TService = {
 }
 
 router.post('/:serviceName/:path', async (req, res) => {
-  try {
-    const { serviceName, path } = req.params;
-    const body = req.body;
-    const service: TService = register.services[serviceName];
-    console.log(path, req.body);
-    
-    const response = await axios.post(service.url + path, body, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+  const { serviceName, path } = req.params;
+  const { body, method } = req;
+  const service: TService = register.services[serviceName];
 
-    if(path === 'login') {
-      console.log(response.data)
-      res.cookie('token', response.data.token, { httpOnly: true });
+  if (service.name === 'authorization') {
+    try {
+      const response = await axios({
+        method: method.toLowerCase(), url: service.url + path, headers: {
+          "Content-Type": "application/json",
+        }, data: body
+      });
+
+      if (path === 'login') {
+        res.cookie('token', response.data.token, { httpOnly: true });
+      }
+
+      res.send(response.data);
+    } catch (err) {
+      res.send(err.message);
     }
-
-    res.send(response.data);
-  } catch(err) {
-    res.send(err);
   }
 });
 
