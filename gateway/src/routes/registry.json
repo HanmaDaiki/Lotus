@@ -3,8 +3,8 @@
     "auth": {
       "name": "authorization",
       "host": "http://localhost",
-      "port": 5001,
-      "url": "http://localhost:5001/users/"
+      "port": 5501,
+      "url": "http://localhost:5501/users/"
     }
   }
 }
